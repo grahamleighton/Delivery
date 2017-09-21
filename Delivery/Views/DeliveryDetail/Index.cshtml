@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Delivery.Models.mvc_ExamineDelivery_Result>
+
+
+<h2>Delivery @Html.Raw(ViewBag.Delivery)</h2>
+
+@Html.ActionLink("Back", "Index", "DeliveryStatus", new { tab = ViewBag.Tab }, null)
+<br/>
+<br />
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            View
+        </th>        
+        <th>
+            @Html.DisplayNameFor(model => model.CatNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OptNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Supplier)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Expected)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Delivered)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceivedOK)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Blockers)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstItem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastItem)
+        </th>
+       
+    </tr>
+
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+           <td>
+               @Html.ActionLink("Receipts", "Find" ,"WIP", new { Delivery = item.Delivery, Supplier = item.Supplier, CatNo = item.CatNo, OptNo = item.OptNo , tab = @ViewBag.Tab},null)
+
+
+           </td>
+            <td>
+                @Html.DisplayFor(model => item.CatNo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.OptNo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Supplier)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Expected)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Delivered)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ReceivedOK)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Blockers)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FirstItem)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.LastItem)
+            </td>
+          
+        </tr>
+    }
+
+
+</table>
+
+

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Delivery.Models.mvc_DeliveryStatusSummary_Result>
+
+@{
+    ViewBag.Title = "Delivery Status";
+}
+
+
+<form action="/DeliveryStatus/search" method="post">
+    <div class="form-group">
+        <label for="delivery">Delivery:</label>
+        <input type="text" class="form-control" id="delivery" placeholder="Find Delivery" name="delivery">
+    </div>
+    <button type="submit" class="btn btn-default">Find</button>
+</form>
+
+
+<ul class="nav nav-tabs">
+    <li><a href="/DeliveryStatus/Index/?tab=1">In Progress <span class="badge">@ViewBag.StatusInProgress</span></a></li>
+    <li><a href="/DeliveryStatus/Index/?tab=0">Complete <span class="badge">@ViewBag.StatusComplete</span></a></li>
+    <li><a href="/DeliveryStatus/Index/?tab=2">Not Started <span class="badge">@ViewBag.StatusNotStarted</span></a></li>
+    <li><a href="/DeliveryStatus/Index/?tab=3">Await Rework <span class="badge">@ViewBag.StatusAwaitRework</span></a></li>
+</ul>
+
+
+<h2>Delivery Summary : @ViewBag.DStatus</h2>
+<br /><br />
+
+<table class="table table-striped">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Delivery)
+        </th>
+        <th> @Html.DisplayNameFor(model => model.Supplier) </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Expected)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Delivered)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Blockers)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastItemKeyed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateStarted)
+        </th>
+    </tr>
+
+
+
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>
+
+             @*   @Html.DisplayFor(model => item.Delivery)  *@
+                @Html.ActionLink(item.Delivery, "Index", "DeliveryDetail", new { delivery = item.Delivery , tab = @ViewBag.Tab }, null)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Supplier)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Expected)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Delivered)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Blockers)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.LastItemKeyed)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.DateStarted)
+            </td>
+          
+        </tr>
+    }
+
+
+</table>
+
+

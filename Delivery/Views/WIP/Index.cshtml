@@ -1,0 +1,110 @@
+﻿@model IEnumerable<Delivery.Models.mvc_showWipForItem_Result>
+
+<h2>Receipt File On DEC Alpha</h2>
+<br /><br />
+
+@Html.ActionLink("Back","Index","DeliveryDetail",new {  delivery = @ViewBag.Delivery, tab = @ViewBag.Tab }, null)
+<h3> Delivery : @ViewBag.Delivery Supplier : @ViewBag.Supplier Cat No : @ViewBag.CatNo Option : @ViewBag.OptNo</h3>
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Sequence)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Delivery)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CatNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OptNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Supplier)
+        </th>
+      
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QCFlag)
+        </th>
+        <th>
+            Position
+        </th>
+        
+      
+      
+        <th>
+            @Html.DisplayNameFor(model => model.TypeLocn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StorageZone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReworkStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeftReceiving)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeLastSeen)
+        </th>
+    </tr>
+
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Source)-@Html.DisplayFor(model => item.Sequence)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Delivery)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.CatNo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.OptNo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Supplier)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.QCFlag)
+            </td>
+          
+            <td>
+                @Html.DisplayFor(model => item.LastPosn) -> @Html.DisplayFor(model => item.Destination)
+            </td>
+          
+          
+            <td>
+                @Html.DisplayFor(model => item.TypeLocn)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.StorageZone)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.ReworkStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.LeftReceiving)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.TimeLastSeen)
+            </td>
+        </tr>
+    }
+
+
+</table>
+
+
+Note : if this page is blank , then it means that this item has not yet been received at all 

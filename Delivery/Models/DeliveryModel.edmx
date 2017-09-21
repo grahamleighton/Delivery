@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WarehouseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="mvc_DeliveryStatusSummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="mvc_ExamineDelivery" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Delivery" Type="varchar" Mode="In" />
+          <Parameter Name="DeliveryFound" Type="char" Mode="InOut" />
+        </Function>
+        <Function Name="mvc_getDeliverySummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="mvc_showWipForItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Delivery" Type="varchar" Mode="In" />
+          <Parameter Name="CatNo" Type="varchar" Mode="In" />
+          <Parameter Name="OptNo" Type="varchar" Mode="In" />
+          <Parameter Name="Supplier" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="WarehouseModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WarehouseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="WarehouseEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="mvc_DeliveryStatusSummary" ReturnType="Collection(WarehouseModel.mvc_DeliveryStatusSummary_Result)" />
+          <FunctionImport Name="mvc_ExamineDelivery" ReturnType="Collection(WarehouseModel.mvc_ExamineDelivery_Result)">
+            <Parameter Name="Delivery" Mode="In" Type="String" />
+            <Parameter Name="DeliveryFound" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="mvc_showWipForItem" ReturnType="Collection(WarehouseModel.mvc_showWipForItem_Result)">
+            <Parameter Name="Delivery" Mode="In" Type="String" />
+            <Parameter Name="CatNo" Mode="In" Type="String" />
+            <Parameter Name="OptNo" Mode="In" Type="String" />
+            <Parameter Name="Supplier" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="mvc_getDeliverySummary" ReturnType="Collection(WarehouseModel.mvc_getDeliverySummary_Result)" />
+        </EntityContainer>
+        <ComplexType Name="mvc_DeliveryStatusSummary_Result">
+          <Property Type="String" Name="Delivery" Nullable="false" MaxLength="6" />
+          <Property Type="Int32" Name="Expected" Nullable="true" />
+          <Property Type="Int32" Name="Delivered" Nullable="true" />
+          <Property Type="Int32" Name="Blockers" Nullable="true" />
+          <Property Type="DateTime" Name="LastItemKeyed" Nullable="true" Precision="23" />
+          <Property Type="String" Name="DStatus" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Supplier" Nullable="true" MaxLength="4" />
+          <Property Type="DateTime" Name="DateStarted" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="mvc_ExamineDelivery_Result">
+          <Property Type="String" Name="Delivery" Nullable="false" MaxLength="6" />
+          <Property Type="String" Name="CatNo" Nullable="false" MaxLength="6" />
+          <Property Type="String" Name="OptNo" Nullable="false" MaxLength="2" />
+          <Property Type="String" Name="Supplier" Nullable="false" MaxLength="4" />
+          <Property Type="Int32" Name="Expected" Nullable="true" />
+          <Property Type="Int32" Name="Delivered" Nullable="true" />
+          <Property Type="Int32" Name="ReceivedOK" Nullable="true" />
+          <Property Type="Int32" Name="Blockers" Nullable="true" />
+          <Property Type="DateTime" Name="FirstItem" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="LastItem" Nullable="true" Precision="23" />
+          <Property Type="String" Name="DeliveryState" Nullable="true" MaxLength="1" />
+          <Property Type="DateTime" Name="DateStarted" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="DateDisappeared" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="mvc_showWipForItem_Result">
+          <Property Type="String" Name="Sequence" Nullable="false" MaxLength="8" />
+          <Property Type="String" Name="Delivery" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="CatNo" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="OptNo" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="Supplier" Nullable="true" MaxLength="4" />
+          <Property Type="String" Name="Source" Nullable="true" MaxLength="1" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="String" Name="QCFlag" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="Location" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="LastPosn" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="Destination" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="PubnPage" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="PackType" Nullable="true" MaxLength="2" />
+          <Property Type="String" Name="TypeLocn" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="StorageZone" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="ReworkStatus" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="LeftReceiving" Nullable="true" MaxLength="1" />
+          <Property Type="DateTime" Name="TimeLastSeen" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="mvc_getDeliverySummary_Result">
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="25" />
+          <Property Type="Int32" Name="Count" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WarehouseModelStoreContainer" CdmEntityContainer="WarehouseEntities" >
+          <FunctionImportMapping FunctionImportName="mvc_DeliveryStatusSummary" FunctionName="WarehouseModel.Store.mvc_DeliveryStatusSummary">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WarehouseModel.mvc_DeliveryStatusSummary_Result">
+                <ScalarProperty Name="Delivery" ColumnName="Delivery" />
+                <ScalarProperty Name="Expected" ColumnName="Expected" />
+                <ScalarProperty Name="Delivered" ColumnName="Delivered" />
+                <ScalarProperty Name="Blockers" ColumnName="Blockers" />
+                <ScalarProperty Name="LastItemKeyed" ColumnName="LastItemKeyed" />
+                <ScalarProperty Name="DStatus" ColumnName="DStatus" />
+                <ScalarProperty Name="Supplier" ColumnName="Supplier" />
+                <ScalarProperty Name="DateStarted" ColumnName="DateStarted" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="mvc_ExamineDelivery" FunctionName="WarehouseModel.Store.mvc_ExamineDelivery">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WarehouseModel.mvc_ExamineDelivery_Result">
+                <ScalarProperty Name="Delivery" ColumnName="Delivery" />
+                <ScalarProperty Name="CatNo" ColumnName="CatNo" />
+                <ScalarProperty Name="OptNo" ColumnName="OptNo" />
+                <ScalarProperty Name="Supplier" ColumnName="Supplier" />
+                <ScalarProperty Name="Expected" ColumnName="Expected" />
+                <ScalarProperty Name="Delivered" ColumnName="Delivered" />
+                <ScalarProperty Name="ReceivedOK" ColumnName="ReceivedOK" />
+                <ScalarProperty Name="Blockers" ColumnName="Blockers" />
+                <ScalarProperty Name="FirstItem" ColumnName="FirstItem" />
+                <ScalarProperty Name="LastItem" ColumnName="LastItem" />
+                <ScalarProperty Name="DeliveryState" ColumnName="DeliveryState" />
+                <ScalarProperty Name="DateStarted" ColumnName="DateStarted" />
+                <ScalarProperty Name="DateDisappeared" ColumnName="DateDisappeared" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="mvc_showWipForItem" FunctionName="WarehouseModel.Store.mvc_showWipForItem">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WarehouseModel.mvc_showWipForItem_Result">
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="Delivery" ColumnName="Delivery" />
+                <ScalarProperty Name="CatNo" ColumnName="CatNo" />
+                <ScalarProperty Name="OptNo" ColumnName="OptNo" />
+                <ScalarProperty Name="Supplier" ColumnName="Supplier" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="QCFlag" ColumnName="QCFlag" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="LastPosn" ColumnName="LastPosn" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="PubnPage" ColumnName="PubnPage" />
+                <ScalarProperty Name="PackType" ColumnName="PackType" />
+                <ScalarProperty Name="TypeLocn" ColumnName="TypeLocn" />
+                <ScalarProperty Name="StorageZone" ColumnName="StorageZone" />
+                <ScalarProperty Name="ReworkStatus" ColumnName="ReworkStatus" />
+                <ScalarProperty Name="LeftReceiving" ColumnName="LeftReceiving" />
+                <ScalarProperty Name="TimeLastSeen" ColumnName="TimeLastSeen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="mvc_getDeliverySummary" FunctionName="WarehouseModel.Store.mvc_getDeliverySummary">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WarehouseModel.mvc_getDeliverySummary_Result">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

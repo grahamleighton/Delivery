@@ -10,6 +10,7 @@ namespace Delivery.Controllers
     {
         public ActionResult Index()
         {
+            return RedirectToAction("index", "DeliveryStatus");
             return View();
         }
 
